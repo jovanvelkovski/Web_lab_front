@@ -1,0 +1,21 @@
+import axios from '../../custom_axios/axios';
+
+const IngredientService = {
+    loadIngredients: () => {
+        return axios.get("/ingredients")
+    },
+    deleteIngredient: (ingredientToDelete)=>{
+
+        return axios.delete("/ingredients/"+ingredientToDelete.name);
+    },
+    addIngredient: (newIngredient)=>{
+
+        return axios.post("/ingredients",newIngredient,{
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    },
+};
+
+export default IngredientService;
