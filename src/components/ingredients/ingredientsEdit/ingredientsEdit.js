@@ -43,8 +43,6 @@ const ingredientsEdit = (props) => {
         else
             $("#kopche").attr("disabled", false);
 
-        console.log($("#ingredient").val());
-        console.log($("#amount").val());
 
         document.getElementById("ingredient").value = $("#ingredient").val();
         setTerm({
