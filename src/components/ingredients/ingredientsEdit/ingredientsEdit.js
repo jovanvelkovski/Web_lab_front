@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link, useParams, useHistory} from 'react-router-dom';
 import axios from '../../../custom_axios/axios';
+import $ from "jquery";
 
 const ingredientsEdit = (props) => {
 
@@ -31,6 +32,31 @@ const ingredientsEdit = (props) => {
         history.push("/ingredients");
     };
 
+    function handleButtonOnChanges() {
+        //debugger;
+        if ($("#ingredient").val().length > 50 ||
+            $("#ingredient").val() === "" ||
+            $("#amount").val() > 999999999 ||
+            $("#amount").val() === "")
+            $("#kopche").attr("disabled", true);
+
+        else
+            $("#kopche").attr("disabled", false);
+
+        console.log($("#ingredient").val());
+        console.log($("#amount").val());
+
+        document.getElementById("ingredient").value = $("#ingredient").val();
+        setTerm({
+            "name": $("#ingredient").val(),
+            "spicy": $("#spicy").is(":checked"),
+            "amount": $("#amount").val(),
+            "veggie": $("#veggie").is(":checked"),
+            "pizzas": []
+
+        })
+    }
+
     return(
         <div className="row">
             <form className="card" onSubmit={onFormSubmit}>
@@ -38,13 +64,13 @@ const ingredientsEdit = (props) => {
                 <div className="form-group row">
                     <label htmlFor="ingredient" className="col-sm-4 offset-sm-1 text-left">Ingredient name</label>
                     <div className="col-sm-6">
-                        <input name="ingredientName" value={term.name} type="text" className="form-control" id="ingredient" placeholder="Ingredient name"/>
+                        <input name="ingredientName" value={term.name} onChange={handleButtonOnChanges} type="text" className="form-control" id="ingredient" placeholder="Ingredient name"/>
                     </div>
                 </div>
                 <div className="form-group row">
                     <label htmlFor="amount" className="col-sm-4 offset-sm-1 text-left">Amount</label>
                     <div className="col-sm-6">
-                        <input name="ingredientAmount" value={term.amount} type="text" className="form-control" id="amount" placeholder="Amount"/>
+                        <input name="ingredientAmount" value={term.amount} onChange={handleButtonOnChanges} type="text" className="form-control" id="amount" placeholder="Amount"/>
                     </div>
                 </div>
                 <div className="form-group row">
@@ -66,6 +92,7 @@ const ingredientsEdit = (props) => {
                         className="offset-sm-1 col-sm-3  text-center">
                         <button
                             type="submit"
+                            id="kopche"
                             className="btn btn-primary text-upper">
                             Save
                         </button>
